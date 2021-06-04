@@ -5,6 +5,10 @@
 <h6>- Functions marked with '#!' are either unstable or not working.<h6>
 <h6>- hash.py/get_sha256 function returns a sha256 hash of which needs to be sent to verify the OTP</h6>
 
+<h4>ROADMAP</h4>
+<h6>- Complete testing current functions and endpoints.</h6>
+<h6>- ASYNCIO implementation.</h6>
+
 <h4>DISCLAIMER</h4>
 <h6>I am in no way affiliated with COWIN API.</h6>
 <h6>Use this library at your own risk, I or any contributors to this library are not responsible for any damages caused.</h6>

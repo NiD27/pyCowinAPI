@@ -1,4 +1,4 @@
-# A API library for the COWIN API
+# An API library for the COWIN Vaccination site.
 <h4>DOCUMENTATION</h4>
 <h6>- Please refer the official website - https://apisetu.gov.in/public/api/cowin/cowin-public-v2 for API rules and limitations and official documentation and schemas.<h6>
 <h6>- Most functions are self documented with the '#?' tag.</h6>

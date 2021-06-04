@@ -126,6 +126,3 @@ class cowinAPI():
         result = requests.get(URL, headers=self.HEADER, params = params)
         return result
     #************************************************************************#
-
-x = alerts()
-pp.pprint(x.findByDistrict("285", "04-06-2021").json())

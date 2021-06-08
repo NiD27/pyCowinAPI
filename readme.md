@@ -15,6 +15,7 @@ obj = cowinAPI()
 <li>Implement appointment booking and certificate download functions.</li>
 <li>ASYNCIO version release.</li>
 </ul>
+
 ### DISCLAIMER
 <ul>
 <li>I am in no way affiliated with COWIN API.</li>

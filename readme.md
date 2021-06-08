@@ -1,14 +1,22 @@
-# An API library for the COWIN Vaccination site.
-<h4>DOCUMENTATION</h4>
-<h6>- Please refer the official website - https://apisetu.gov.in/public/api/cowin/cowin-public-v2 for API rules and limitations and official documentation and schemas.<h6>
-<h6>- Most functions are self documented with the '#?' tag.</h6>
-<h6>- Functions marked with '#!' are either unstable or not working.<h6>
-<h6>- hash.py/get_sha256 function returns a sha256 hash of which needs to be sent to verify the OTP</h6>
+### An API library for the COWIN Vaccination site.
+<ul>
+<li>Please refer the official website - https://apisetu.gov.in/public/api/cowin/cowin-public-v2 for API rules and limitations and official documentation and schemas.</li>
+</ul>
 
-<h4>ROADMAP</h4>
-<h6>- Complete testing current functions and endpoints.</h6>
-<h6>- ASYNCIO implementation.</h6>
+### USAGE
+```python
+from cowinAPI import cowinAPI
+obj = cowinAPI()
+```
 
-<h4>DISCLAIMER</h4>
-<h6>I am in no way affiliated with COWIN API.</h6>
-<h6>Use this library at your own risk, I or any contributors to this library are not responsible for any damages caused.</h6>
+### ROADMAP
+<ul>
+<li>Complete implementing all metadata functions.</li>
+<li>Implement appointment booking and certificate download functions.</li>
+<li>ASYNCIO version release.</li>
+</ul>
+### DISCLAIMER
+<ul>
+<li>I am in no way affiliated with COWIN API.</li>
+<li>Use this library at your own risk, I or any contributors to this library are not responsible for any damages caused.</li>
+</ul>

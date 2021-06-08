@@ -1,4 +1,4 @@
-### An API library for the COWIN Vaccination site.
+### Python wrapper for the COWIN API.
 <ul>
 <li>Please refer the official website - https://apisetu.gov.in/public/api/cowin/cowin-public-v2 for API rules and limitations and official documentation and schemas.</li>
 </ul>

@@ -3,16 +3,31 @@
 <li>Please refer the official website - https://apisetu.gov.in/public/api/cowin/cowin-public-v2 for API rules and limitations and official documentation and schemas.</li>
 </ul>
 
+### Classes
+The official documentation of the api has 3 different api endpoints namely:
+<ul>
+<li>Co-WIN Public APIs</li>
+<li>Co-WIN Protected APIs</li>
+<li>Co-WIN Vaccinator APIs</li>
+<ul>
+
+### Currently Available
+<ul>
+    <li>cowinPublicApi</li>
+</ul>
+<h4>The other 2 APIs are still under development</h4>
+
 ### USAGE
 ```python
-from cowinAPI import cowinAPI
+from cowinAPI import cowinPublicAPI
 obj = cowinAPI()
 ```
 
 ### ROADMAP
 <ul>
-<li>Complete implementing all metadata functions.</li>
-<li>Implement appointment booking and certificate download functions.</li>
+<li>~~Co-WIN Public APIs~~</li>
+<li>Co-WIN Protected APIs</li>
+<li>Co-WIN Vaccinator APIs</li>
 <li>ASYNCIO version release.</li>
 </ul>
 

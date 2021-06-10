@@ -1,23 +1,28 @@
 import json
 import requests
 
-from .utils import func_args_processor
+from requests.exceptions import RequestException
+from json.decoder import JSONDecodeError
 
-class cowinAPI:
-    __API_BASE_URL = "https://cdn-api.co-vin.in/api"
-    __BASE_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36"}
-    __BASE_PARAMS = {"Accept-Language": "en_IN"}
 
-    def __init__(self, api_base_url = __API_BASE_URL, base_headers = __BASE_HEADERS, base_params = __BASE_PARAMS):
+from .utils import func_args_processor, generate_sha256
+
+class cowinPublicAPI():
+    API_BASE_URL = "https://cdn-api.co-vin.in/api"
+    BASE_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36", "Content-Type": "application/json"}
+    BASE_PARAMS = {"Accept-Language": "en_IN"}
+
+    def __init__(self, api_base_url = API_BASE_URL, base_headers = BASE_HEADERS, base_params = BASE_PARAMS):
         self.api_base_url = api_base_url
         self.base_headers = base_headers
         self.base_params = base_params
         self.request_timeout = 120
 
+
     def __request_get(self, url, headers, params):
         try:
             response = requests.get(url, headers = headers, params = params)
-        except requests.exceptions.RequestException:
+        except RequestException:
             raise
 
         try:
@@ -30,13 +35,60 @@ class cowinAPI:
                 content = json.loads(response.content.decode('utf-8'))
                 raise valueError(content)
             # If no JSON
-            except json.decoder.JSONDecodeError:
+            except JSONDecodeError:
                 pass
 
             raise
     
-    #? START METADATA API's
+    def __request_post(self, url, headers, params):
+        try:
+            response = requests.post(url, headers = headers, parmas = params)
+        except RequestException:
+            raise
 
+        try:
+            response.raise_for_status()
+            content = json.loads(response.content.decode('utf-8'))
+            return content
+        except Exception as e:
+            try:
+                content = json.loads(response.content.decode('utf-8'))
+                raise valueError(content)
+            # If no JSON
+            except JSONDecodeError:
+                pass
+            
+            raise
+
+    #? START USER AUTHENTICATION API's
+
+    """generate_OTP - requires a 10 digit mobile number (without the country code) and posts a OTP request  and the response contains a txnId"""
+    @func_args_processor
+    def generate_OTP(self, mobile):
+        api_url = f"{self.api_base_url}/v2/auth/public/generateOTP"
+        params = self.base_params
+        params["mobile"] = mobile
+        return self.__request_post(api_url, self.base_headers, params)
+    
+    """
+    confirm_OTP - requires a txnId which is returned by the generate_OTP functions and also requires a SHA-256 hash of the received OTP. Hash function provided in utils.py.
+    If success the response is a token
+    """
+    @func_args_processor
+    def confirm_OTP(self, txnId, otp):
+        api_url = f"{self.api_base_url}/v2/auth/public/confirmOTP"
+        params = self.base_params
+        params["txnId"] = txnId
+        params["otp"] = generate_sha256(otp)
+        return self.__request_post(api_url, self.base_headers, params)
+
+    #? END USER AUTHENTICATION API's
+
+
+    #? START METADATA API's
+    """
+    Returns the id's of all states and the id's of districts in a specified state
+    """
     @func_args_processor 
     def get_states(self):
         # api_url = f"{self.api_base_url}/v2/admin/location/states"
@@ -86,3 +138,15 @@ class cowinAPI:
         return self.__request_get(api_url, self.base_headers, params)
 
     #? END APPOINTMENT API's
+    #------------------------------------------------------------------#
+    #? START CERTIFICATE API's
+    """
+    ALERT - This function returns the binary content of PDF file write your own code to create a .pdf
+    """
+    def certificate_download(self, beneficiary_reference_id):
+        api_url = f"{self.api_base_url}/v2/registration/certificate/public/download"
+        params = self.base_params
+        params["beneficiary_reference_id"] = beneficiary_reference_id
+        return self.__request_get(api_url, self.base_headers, params)
+
+    #? END CERTIFICATE API's

@@ -1,1 +1,1 @@
-from .cowinAPI import cowinAPI
+from .cowinAPI import cowinPublicAPI

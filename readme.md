@@ -9,7 +9,7 @@ The official documentation of the api has 3 different api endpoints namely:
 <li>Co-WIN Public APIs</li>
 <li>Co-WIN Protected APIs</li>
 <li>Co-WIN Vaccinator APIs</li>
-<ul>
+</ul>
 
 ### Currently Available
 <ul>

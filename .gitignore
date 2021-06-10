@@ -2,4 +2,3 @@ pyCowinApi_env
 __pycache__
 test.py
 pyCowinApi.py
-requestsHandler.py

@@ -19,12 +19,3 @@ def args_precessing(value):
     if type(value) == "dict":
         return str(value.values()[0])
     return str(value)
-
-# @func_args_processor
-# def test(*args, **kwargs):
-#     print(args, kwargs)
-#     print(type(args), type(kwargs))
-#     [print(type(x)) for x in args]
-#     [print(type(kwargs[x])) for x in kwargs.keys()]
-
-# test(2, y =  1)

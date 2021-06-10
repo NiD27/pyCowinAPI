@@ -25,7 +25,7 @@ obj = cowinAPI()
 
 ### ROADMAP
 <ul>
-<li>~~Co-WIN Public APIs~~</li>
+<li> ~~Co-WIN Public APIs~~</li>
 <li>Co-WIN Protected APIs</li>
 <li>Co-WIN Vaccinator APIs</li>
 <li>ASYNCIO version release.</li>

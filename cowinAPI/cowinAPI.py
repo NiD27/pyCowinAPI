@@ -1,13 +1,13 @@
-import json
-import requests
+# import json
+# import requests
 
-from requests.exceptions import RequestException
-from json.decoder import JSONDecodeError
+# from requests.exceptions import RequestException
+# from json.decoder import JSONDecodeError
 
-
+from .requestsHandler import __requests_handler
 from .utils import func_args_processor, generate_sha256
 
-class cowinPublicAPI():
+class cowinPublicAPI(__requests_handler):
     API_BASE_URL = "https://cdn-api.co-vin.in/api"
     BASE_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36", "Content-Type": "application/json"}
     BASE_PARAMS = {"Accept-Language": "en_IN"}
@@ -18,48 +18,6 @@ class cowinPublicAPI():
         self.base_params = base_params
         self.request_timeout = 120
 
-
-    def __request_get(self, url, headers, params):
-        try:
-            response = requests.get(url, headers = headers, params = params)
-        except RequestException:
-            raise
-
-        try:
-            response.raise_for_status()
-            content = json.loads(response.content.decode('utf-8'))
-            return content
-        except Exception as e:
-            # Check if JSON (with error messages) is returned
-            try:
-                content = json.loads(response.content.decode('utf-8'))
-                raise valueError(content)
-            # If no JSON
-            except JSONDecodeError:
-                pass
-
-            raise
-    
-    def __request_post(self, url, headers, params):
-        try:
-            response = requests.post(url, headers = headers, parmas = params)
-        except RequestException:
-            raise
-
-        try:
-            response.raise_for_status()
-            content = json.loads(response.content.decode('utf-8'))
-            return content
-        except Exception as e:
-            try:
-                content = json.loads(response.content.decode('utf-8'))
-                raise valueError(content)
-            # If no JSON
-            except JSONDecodeError:
-                pass
-            
-            raise
-
     #? START USER AUTHENTICATION API's
 
     """generate_OTP - requires a 10 digit mobile number (without the country code) and posts a OTP request  and the response contains a txnId"""
@@ -68,7 +26,7 @@ class cowinPublicAPI():
         api_url = f"{self.api_base_url}/v2/auth/public/generateOTP"
         params = self.base_params
         params["mobile"] = mobile
-        return self.__request_post(api_url, self.base_headers, params)
+        return self.request_post(api_url, self.base_headers, params)
     
     """
     confirm_OTP - requires a txnId which is returned by the generate_OTP functions and also requires a SHA-256 hash of the received OTP. Hash function provided in utils.py.
@@ -80,7 +38,7 @@ class cowinPublicAPI():
         params = self.base_params
         params["txnId"] = txnId
         params["otp"] = generate_sha256(otp)
-        return self.__request_post(api_url, self.base_headers, params)
+        return self.request_post(api_url, self.base_headers, params)
 
     #? END USER AUTHENTICATION API's
 
@@ -93,7 +51,7 @@ class cowinPublicAPI():
     def get_states(self):
         # api_url = f"{self.api_base_url}/v2/admin/location/states"
         api_url = f"{self.api_base_url}/v2/admin/location/states"
-        return self.__request_get(api_url, self.base_headers, self.base_params)
+        return self.request_get(api_url, self.base_headers, self.base_params)
     
     """
     The state_id needs to be appended to the url as well as sent as a parameter, when sent only as a parameter it returns 403 - Unauthorized URL
@@ -105,7 +63,7 @@ class cowinPublicAPI():
         params["state_id"] = state_id
         # payload.update(self.BASE_PAYLOAD)
         api_url += params["state_id"]
-        return self.__request_get(api_url, self.base_headers, params)
+        return self.request_get(api_url, self.base_headers, params)
 
     #? END METADATA API's
     #------------------------------------------------------------------#
@@ -119,7 +77,7 @@ class cowinPublicAPI():
         params = self.base_params
         params["pincode"] = pincode
         params["date"] = date
-        return self.__request_get(api_url, self.base_headers, params)
+        return self.request_get(api_url, self.base_headers, params)
 
     @func_args_processor
     def calendar_by_district(self, district_id, date):
@@ -127,7 +85,7 @@ class cowinPublicAPI():
         params = self.base_params
         params["district_id"] = district_id
         params["date"] = date
-        return self.__request_get(api_url, self.base_headers, params)
+        return self.request_get(api_url, self.base_headers, params)
 
     @func_args_processor
     def calendar_by_center(self, center_id, date):
@@ -135,7 +93,7 @@ class cowinPublicAPI():
         params = self.base_params
         params["center_id"] = center_id
         params["date"] = date
-        return self.__request_get(api_url, self.base_headers, params)
+        return self.request_get(api_url, self.base_headers, params)
 
     #? END APPOINTMENT API's
     #------------------------------------------------------------------#
@@ -147,6 +105,6 @@ class cowinPublicAPI():
         api_url = f"{self.api_base_url}/v2/registration/certificate/public/download"
         params = self.base_params
         params["beneficiary_reference_id"] = beneficiary_reference_id
-        return self.__request_get(api_url, self.base_headers, params)
+        return self.request_get(api_url, self.base_headers, params)
 
     #? END CERTIFICATE API's

@@ -1,34 +1,43 @@
 ### Python wrapper for the COWIN API.
 <ul>
-<li>Please refer the official website - https://apisetu.gov.in/public/api/cowin/cowin-public-v2 for API rules and limitations and official documentation and schemas.</li>
+<li>Please refer the official website - https://apisetu.gov.in/public/api/cowin/cowin-public-v2 for API rules, limitations, official documentation and schemas.</li>
+<li>Sandbox api-key provided by the official website is used by default, refer official website to obtain your own api-key.</li>
+<li>This library is under development and certain features may be unstable, stay updated with the latest version.</li>
 </ul>
 
 ### Classes
-The official documentation of the api has 3 different api endpoints namely:
+The official documentation of the api has been categorized into:
 <ul>
 <li>Co-WIN Public APIs</li>
 <li>Co-WIN Protected APIs</li>
-<li>Co-WIN Vaccinator APIs</li>
+<li>Co-WIN Vaccinator APIs*</li>
 </ul>
-
-### Currently Available
-<ul>
-    <li>cowinPublicApi</li>
-</ul>
-<h4>The other 2 APIs are still under development</h4>
 
 ### USAGE
+- Requirements
 ```python
-from cowinAPI import cowinPublicAPI
-obj = cowinAPI()
+pip install -r requirements.txt
+```
+- Co-WIN Public APIs
+```python
+from cowinApi import cowinPublicApi
+obj = cowinPublicApi()
+```
+- Co-WIN Protected APIs
+```python
+#FOR SANDBOX URL AND API-KEY
+from cowinApi import cowinProtectedApi
+obj = cowinProtectedApi()
+#FOR PRODUCTION URL AND API-KEY
+from cowinApi import cowinProtectedApi
+obj = cowinProtectedApi(production = True, api_key_production = "INSERT_API_KEY_HERE")
 ```
 
 ### ROADMAP
 <ul>
-<li> ~~Co-WIN Public APIs~~</li>
-<li>Co-WIN Protected APIs</li>
 <li>Co-WIN Vaccinator APIs</li>
-<li>ASYNCIO version release.</li>
+<li>Testing and stabalizing of unstable functions.</li>
+<li>ASYNCIO version.</li>
 </ul>
 
 ### DISCLAIMER

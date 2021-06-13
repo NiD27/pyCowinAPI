@@ -1,18 +1,12 @@
-# import json
-# import requests
-
-# from requests.exceptions import RequestException
-# from json.decoder import JSONDecodeError
-
 from .requestsHandler import __requests_handler
 from .utils import func_args_processor, generate_sha256
 
-class cowinPublicAPI(__requests_handler):
-    API_BASE_URL = "https://cdn-api.co-vin.in/api"
+class cowinPublicApi(__requests_handler):
+    API_BASE_URL_PRODUCTION = "https://cdn-api.co-vin.in/api"
     BASE_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36", "Content-Type": "application/json"}
     BASE_PARAMS = {"Accept-Language": "en_IN"}
 
-    def __init__(self, api_base_url = API_BASE_URL, base_headers = BASE_HEADERS, base_params = BASE_PARAMS):
+    def __init__(self, api_base_url = API_BASE_URL_PRODUCTION, base_headers = BASE_HEADERS, base_params = BASE_PARAMS):
         self.api_base_url = api_base_url
         self.base_headers = base_headers
         self.base_params = base_params
@@ -41,15 +35,13 @@ class cowinPublicAPI(__requests_handler):
         return self.request_post(api_url, self.base_headers, params)
 
     #? END USER AUTHENTICATION API's
-
-
+    #------------------------------------------------------------------#
     #? START METADATA API's
     """
     Returns the id's of all states and the id's of districts in a specified state
     """
     @func_args_processor 
     def get_states(self):
-        # api_url = f"{self.api_base_url}/v2/admin/location/states"
         api_url = f"{self.api_base_url}/v2/admin/location/states"
         return self.request_get(api_url, self.base_headers, self.base_params)
     
@@ -61,7 +53,6 @@ class cowinPublicAPI(__requests_handler):
         api_url = f"{self.api_base_url}/v2/admin/location/districts/"
         params = self.base_params
         params["state_id"] = state_id
-        # payload.update(self.BASE_PAYLOAD)
         api_url += params["state_id"]
         return self.request_get(api_url, self.base_headers, params)
 
@@ -69,7 +60,7 @@ class cowinPublicAPI(__requests_handler):
     #------------------------------------------------------------------#
     #? START APPOINTMENT API's
     """
-    findByPin, findByDistrict, findByLatLong are current under debugging process seems that official documentation may be inaccurate please use calendar_by_xyz instead
+    findByPin, findByDistrict, findByLatLong are currently under debugging process seems that official documentation may be inaccurate please use calendar_by_xyz instead
     """
     @func_args_processor
     def calendar_by_pin(self, pincode, date):

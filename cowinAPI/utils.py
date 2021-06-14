@@ -18,4 +18,6 @@ def func_args_processor(func):
 def args_precessing(value):
     if type(value) == "dict":
         return str(value.values()[0])
+    if type(value) == "list":
+        return [str(x) for x in value]
     return str(value)

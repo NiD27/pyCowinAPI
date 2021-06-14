@@ -185,6 +185,7 @@ class cowinProtectedApi(__requests_handler):
     """
     ALERT - This function returns the binary content of PDF file write your own code to create a .pdf
     """
+    @func_args_processor
     def certificate_download(self, beneficiary_reference_id):
         api_url = f"{self.api_base_url}/v2/registration/certificate/download"
         params = self.base_params
@@ -194,6 +195,7 @@ class cowinProtectedApi(__requests_handler):
     """
     ALERT - This function returns the binary content of PDF file write your own code to create a .pdf
     """
+    @func_args_processor
     def appointment_slip_download(self, appointment_id):
         api_url = f"{self.api_base_url}​/v2​/appointment​/appointmentslip​/download"
         params = self.base_params

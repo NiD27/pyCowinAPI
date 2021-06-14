@@ -10,7 +10,7 @@ The official documentation of the api has been categorized into:
 <ul>
 <li>Co-WIN Public APIs</li>
 <li>Co-WIN Protected APIs</li>
-<li>Co-WIN Vaccinator APIs*</li>
+<li>Co-WIN Vaccinator APIs</li>
 </ul>
 
 ### USAGE
@@ -32,10 +32,20 @@ obj = cowinProtectedApi()
 from cowinApi import cowinProtectedApi
 obj = cowinProtectedApi(production = True, api_key_production = "INSERT_API_KEY_HERE")
 ```
+- Co-WIN Vaccinator APIs
+```python
+#FOR SANDBOX URL AND API-KEY
+from cowinApi import cowinVaccinatorApi
+obj = cowinVaccinatorApi()
+#FOR PRODUCTION URL AND API-KEY
+from cowinApi import cowinVaccinatorApi
+obj = cowinVaccinatorApi(production = True, api_key_production = "INSERT_API_KEY_HERE")
+```
 
 ### ROADMAP
 <ul>
-<li>Co-WIN Vaccinator APIs</li>
+<li>User Agent implementation.</li>
+<li>Major refactoring.</li>
 <li>Testing and stabalizing of unstable functions.</li>
 <li>ASYNCIO version.</li>
 </ul>

@@ -12,9 +12,8 @@ class cowinPublicApi(__requests_handler, cowinApi):
                  base_headers = cowinApi.BASE_HEADERS, base_params = cowinApi.BASE_PARAMS, production = False, api_key_production = None, vaccines = cowinApi.VACCINES):
         self.api_key = api_key_sandbox
         self.api_base_url = api_base_sandbox_url
-        if production:
+        if production and api_key_production:
             self.api_key = api_key_production
-        if api_key_production:
             self.api_base_url = api_base_production_url
         self.base_headers = base_headers
         self.base_headers["x-api-key"] = self.api_key

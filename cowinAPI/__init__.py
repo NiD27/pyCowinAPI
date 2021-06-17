@@ -1,2 +1,3 @@
 from .cowinPublicApi import cowinPublicApi
 from .cowinProtectedApi import cowinProtectedApi
+from .cowinVaccinatorApi import cowinVaccinatorApi

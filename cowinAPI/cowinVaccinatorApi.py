@@ -1,22 +1,15 @@
 from .requestsHandler import __requests_handler
 from .utils import func_args_processor, generate_sha256
+from .cowinApi import cowinApi
 
-class cowinVaccinatorApi(__requests_handler):
-
-    API_KEY_SANDBOX = "3sjOr2rmM52GzhpMHjDEE1kpQeRxwFDr4YcBEimi"
-    API_BASE_SANDBOX_URL = "https://cdndemo-api.co-vin.in/api"
-    API_BASE_PRODUCTION_URL = "https://cdn-api.co-vin.in/api"
-    BASE_HEADERS = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36", "Content-Type": "application/json"
-    }
-    BASE_PARAMS = {"Accept-Language": "en_IN"}
+class cowinVaccinatorApi(__requests_handler, cowinApi):
 
     """
     production = False by default this enables sandbox mode,
     if you need production mode please turn production = True and also set api_key_production
     """
-    def __init__(self, api_key_sandbox = API_KEY_SANDBOX, api_base_sandbox_url = API_BASE_SANDBOX_URL, api_base_production_url = API_BASE_PRODUCTION_URL,
-                 base_headers = BASE_HEADERS, base_params = BASE_PARAMS, production = False, api_key_production = None):
+    def __init__(self, api_key_sandbox = cowinApi.API_KEY_SANDBOX, api_base_sandbox_url = cowinApi.API_BASE_SANDBOX_URL, api_base_production_url = cowinApi.API_BASE_PRODUCTION_URL,
+                 base_headers = cowinApi.BASE_HEADERS, base_params = cowinApi.BASE_PARAMS, production = False, api_key_production = None, vaccines = cowinApi.VACCINES):
         self.api_key = api_key_sandbox
         self.api_base_url = api_base_sandbox_url
         if production and api_key_production:
@@ -25,6 +18,7 @@ class cowinVaccinatorApi(__requests_handler):
         self.base_headers = base_headers
         self.base_headers["x-api-key"] = self.api_key
         self.base_params = base_params
+        self.vaccines = vaccines
         self.request_timeout = 120
 
     #? START BENEFICIARY API's
@@ -70,10 +64,10 @@ class cowinVaccinatorApi(__requests_handler):
         return self.request_post(api_url, self.base_headers, params)
     
     """
-    API to update a beneficiary record with vaccination details.
+    Update beneficiary record with vaccination details.
     """
     @func_args_processor
-    def appointment_schedule(self, dose, session_id, slot, beneficiaries = []):
+    def beneficiaries_vaccinate(self, dose, session_id, slot, beneficiaries = []):
         api_url = f"{self.api_base_url}/v2/vaccinator/onspots/schedule"
         params = self.base_params
         params["dose"] = dose

@@ -22,6 +22,9 @@ pip install -r requirements.txt
 ```python
 from cowinApi import cowinPublicApi
 obj = cowinPublicApi()
+#FOR PRODUCTION URL AND API-KEY
+from cowinApi import cowinPublicApi
+obj = cowinPublicApi(production = True, api_key_production = "INSERT_API_KEY_HERE")
 ```
 - Co-WIN Protected APIs
 ```python
@@ -44,9 +47,10 @@ obj = cowinVaccinatorApi(production = True, api_key_production = "INSERT_API_KEY
 
 ### ROADMAP
 <ul>
-<li>User Agent implementation.</li>
-<li>Major refactoring.</li>
-<li>Testing and stabalizing of unstable functions.</li>
+<li>Fake User Agent implementation.</li>
+<li>Rate limiting/monitoring.</li>
+<li>Request timeouts.</li>
+<li>Testing and stabalization of unstable functions.</li>
 <li>ASYNCIO version.</li>
 </ul>
 
